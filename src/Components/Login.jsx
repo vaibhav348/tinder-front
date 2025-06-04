@@ -1,22 +1,32 @@
 import React, { useState } from 'react'
 import { AwardIcon, Eye, EyeOff } from 'lucide-react'; // or use Heroicons if you prefer
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlice';
+import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../utils/constants';
 
 
 const Login = () => {
+  const navigate = useNavigate()
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passVis, setPassVis] = useState(false);
+const dispatch = useDispatch()
+
   const handleLogin=async(e)=>{
     try{
     e.preventDefault();
-    console.log(email, password );
-      const res = await axios.post("http://localhost:3000/login",{
+    // console.log(email, password );
+      const res = await axios.post(BASE_URL+"/login",{
         emailId : email, password
       },{
         withCredentials : true
       })
-      console.log(res)
+      // console.log(res)
+      dispatch(addUser(res.data))
+      return navigate("/")
     }catch(err){
       console.log(err);
       
