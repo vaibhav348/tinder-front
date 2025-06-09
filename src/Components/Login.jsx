@@ -12,6 +12,7 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("")
   const [passVis, setPassVis] = useState(false);
 const dispatch = useDispatch()
 
@@ -25,11 +26,10 @@ const dispatch = useDispatch()
         withCredentials : true
       })
       // console.log(res)
-      dispatch(addUser(res.data))
+      dispatch(addUser(res.data.user))
       return navigate("/")
     }catch(err){
-      console.log(err);
-      
+      setError(err.response.data.message)
     }
               
   }
@@ -48,7 +48,7 @@ const dispatch = useDispatch()
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 "
           />
         </div>
-        <div className="mb-6">
+        <div className="mb-2">
           <label htmlFor="password" className="block text-gray-700 font-medium mb-2">
             Password
           </label>
@@ -65,12 +65,13 @@ const dispatch = useDispatch()
             <button
               type="button"
               onClick={() => {setPassVis(!passVis) 
-                    
+                
               }}
               className='w-13 flex justify-center items-center text-xl bg-gray-500 text-white py-2 rounded-full hover:bg-blue-700 transition duration-300'>
               {passVis ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
           </div>
+        <p className='text-red-600 pt-2 pl-2'>{error}</p>
         </div>
         <button
           type="submit"
