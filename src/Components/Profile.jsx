@@ -1,17 +1,17 @@
 import React from 'react'
+import EditProfie from './EditProfie'
+import { useSelector } from 'react-redux'
 
 const Profile = () => {
-  return (
-   <>
-   <div className=''>
-    <img src="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png" alt="" />
-    <div className="name">
-      <p>Name</p>
-      <p>"Vaibhav"</p>
-    </div>
+      const userData = useSelector((store) => store.user)
 
-   </div>
-   </>
+  return (
+ 
+   <div className=''>
+   <EditProfie userData={userData}/>
+    </div>
+ 
+    
   )
 }
 

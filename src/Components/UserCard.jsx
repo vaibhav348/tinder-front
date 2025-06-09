@@ -1,8 +1,12 @@
 import React from 'react';
 
 const UserCard = ({user}) => {
+  {
+    console.log("usercard user", user);
+    
+  }
   return (
-    <div className="card  px-4 min-w-fit bg-base-100 w-auto shadow-sm m-2 rounded-lg">
+    <div className="card  px-4 min-w-fit bg-base-100 w-auto shadow-sm  rounded-lg">
       
       {/* Smaller image */}
       <figure className="mt-3 w-40 h-40 mx-auto">
@@ -16,12 +20,12 @@ const UserCard = ({user}) => {
       {/* Tighter body */}
       <div className=" p-3 text-gray-800">
         <h2 className="card-title text-base font-semibold font-mono">{`${user?.firstName} ${user?.lastName}`}</h2>
-        <p className="text-sm">{user?.gender}</p>
+        <p className="text-sm">{user?.age} {user?.gender}</p>
 
-        <p className="text-sm">{user?.about}</p>
+        <p className="text-sm">{ user?.about}</p>
 
         {
-            user?.skills.length > 0 ? <div className="mt-2">
+            user?.skills?.length > 0 ? <div className="mt-2">
           <p className="font-semibold text-sm mb-1">Skills</p>
           <ul className="list-disc list-inside text-xs space-y-0.5">
         
