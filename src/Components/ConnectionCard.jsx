@@ -1,0 +1,44 @@
+import React from 'react';
+
+const ConnectionCard = ({ user }) => {
+  return (
+    <div className="relative my-4 px-4 min-w-fit w-auto bg-[#111827] bg-opacity-70 rounded-2xl shadow-md border border-gray-700 hover:shadow-blue-500/50 transition-all duration-300 backdrop-blur-md">
+      
+      {/* Glowing border effect */}
+      <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-2xl blur opacity-25"></div>
+
+      {/* Content */}
+      <div className="relative z-10 p-4 text-white space-y-2">
+        {/* Profile image */}
+        <div className="flex justify-center">
+          <img
+            src={user.photoUrl}
+            alt="Profile"
+            className="w-32 h-32 rounded-full object-cover border-4 border-purple-600 shadow-lg"
+          />
+        </div>
+
+        {/* Name and Bio */}
+        <div className="text-center mt-2">
+          <h2 className="text-lg font-semibold tracking-wide font-mono text-blue-400">{`${user?.firstName} ${user?.lastName}`}</h2>
+          <p className="text-sm text-gray-400">{user?.age} | {user?.gender}</p>
+          <p className="text-sm text-gray-300 italic">{user?.about}</p>
+        </div>
+
+        {/* Skills Section */}
+        {user?.skills?.length > 0 && (
+          <div className="mt-2">
+            <p className="font-semibold text-sm text-pink-400">Skills</p>
+            <ul className="list-disc list-inside text-xs text-gray-200 space-y-1 pl-2">
+              {user.skills.map((skill, index) => (
+                <li key={index} className="hover:text-purple-400 transition">{skill}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ConnectionCard;

@@ -50,7 +50,12 @@ const handleLogout=async()=>{
                 <span className="badge shadow">New</span>
               </Link>
             </li>
-            <li><a>Settings</a></li>
+            <li><Link to={"/connection"} className="justify-between">
+               Connection
+              </Link></li>
+               <li><Link to={"/requests"} className="justify-between">
+               Request
+              </Link></li>
             <li><Link to={"/"} onClick={()=>handleLogout()}>Logout</Link></li>
           </ul>
         </div>
