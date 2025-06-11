@@ -26,7 +26,7 @@ const ConnectionCard = ({ user }) => {
         </div>
 
         {/* Skills Section */}
-        {user?.skills?.length > 0 && (
+        {/* {user?.skills?.length > 0 && (
           <div className="mt-2">
             <p className="font-semibold text-sm text-pink-400">Skills</p>
             <ul className="list-disc list-inside text-xs text-gray-200 space-y-1 pl-2">
@@ -35,7 +35,7 @@ const ConnectionCard = ({ user }) => {
               ))}
             </ul>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

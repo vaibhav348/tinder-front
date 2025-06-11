@@ -37,9 +37,11 @@ const disapatch  = useDispatch()
 
     </div>
     :
-    <div  className='text-white flex justify-center items-center   h-screen '>
-        <p className=' font-semibold text-xl '>No Requests Found!!!</p>
-        
+    <div className="p-2 min-h-[90vh]    bg-gray-900 text-white">
+    <div className=' flex justify-center h-[50vh] items-center '>
+
+               <p className=' text-center  font-semibold text-2xl font-mono text-gray-400 '>No Requests Found!!!</p>
+        </div>
     </div>
   )
 }

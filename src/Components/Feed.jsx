@@ -9,7 +9,7 @@ const Feed = () => {
 
   const dispatch = useDispatch();
   const feedData = useSelector((store) => store.feed);
-// console.log("Only feed from Redux:", feedData[0]);
+  // console.log("Only feed from Redux:", feedData[0]);
 
 
   const getFeed = async () => {
@@ -22,7 +22,7 @@ const Feed = () => {
       })
 
       console.log("Feed", res.data);
-      dispatch(addFeed(res.data)) 
+      dispatch(addFeed(res.data))
 
     } catch (error) {
       console.log(error.message);
@@ -31,27 +31,26 @@ const Feed = () => {
   }
   useEffect(() => {
     getFeed();
-    
+
   }, []);
 
   return (
-   <div className="p-2 min-h-screen   bg-gray-900 text-white">
+    <div className="p-2 min-h-[90vh]    bg-gray-900 text-white">
       {feedData && feedData.length > 0 ? (
         <>
           <h2 className="text-2xl font-bold mb-2 text-center">Feed List</h2>
-          <div className=" py-10 grid gap-4 
-                          grid-cols-1 
-                          sm:grid-cols-2 
-                          md:grid-cols-3 
-                          lg:grid-cols-4 
-                          xl:grid-cols-5">
-            {feedData.map((item, index) => (
-              <UserCard user={feedData[index]} key={item._id} item={item} />
-            ))}
+          <div className=" py-10   flex justify-center items-center ">
+          
+
+            <UserCard user={feedData[0]}  />
+           
           </div>
         </>
       ) : (
-        <p className="text-center text-gray-400">No data found.</p>
+        <div className=' flex justify-center h-[50vh] items-center '>
+
+          <p className=" text-center  font-semibold text-2xl font-mono text-gray-400">No data found.</p>
+        </div>
       )}
     </div>
   )

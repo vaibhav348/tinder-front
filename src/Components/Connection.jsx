@@ -30,7 +30,7 @@ useEffect(() => {
 console.log("cccccccccc",connections);
 
   return (
-   connections?.length > 0 ?  <div className='text-white p-4'>
+   connections?.length > 0 ?  <div className='text-white p-4  min-h-[90vh]    bg-gray-900 '>
         <p className='flex font-semibold text-xl justify-center '>Connections</p>
 <div className=' py-10 grid gap-4 
                           grid-cols-1 
@@ -46,10 +46,13 @@ console.log("cccccccccc",connections);
 
     </div>
     :
-    <div  className='text-white flex justify-center items-center   h-screen '>
-        <p className=' font-semibold text-xl '>No Connections Found!!!</p>
-        
+      <div className="p-2 min-h-[90vh]    bg-gray-900 text-white">
+    <div className=' flex justify-center h-[50vh] items-center '>
+
+               <p className=' text-center  font-semibold text-2xl font-mono text-gray-400 '>No Connections Found!!!</p>
+        </div>
     </div>
+    
   )
 }
 
