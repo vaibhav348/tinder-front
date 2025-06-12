@@ -17,9 +17,9 @@ const EditProfie = ({ userData }) => {
 
   const [firstName, setFirstName] = useState(userData?.firstName);
   const [lastName, setLastName] = useState(userData?.lastName);
-  const [age, setAge] = useState(userData?.age);
-  const [gender, setGender] = useState(userData?.gender);
-  const [about, setAbout] = useState(userData?.about);
+  const [age, setAge] = useState(userData?.age || "");
+  const [gender, setGender] = useState(userData?.gender || "");
+  const [about, setAbout] = useState(userData?.about || "");
   const [photoUrl, setPhotoUrl] = useState(userData?.photoUrl)
   const [error, setError] = useState("")
   const [showToast, setShowToast] = useState(false)
@@ -33,8 +33,8 @@ const EditProfie = ({ userData }) => {
     const nameRegex = /^[A-Za-z]{2,20}$/;
     const imageUrlRegex = /\.(jpg|jpeg|png|webp|gif|svg)$/i;
 
-    if (!nameRegex.test(firstName)) return setError("Invalid First Name (only letters, 2–30 chars)");
-    if (!nameRegex.test(lastName)) return setError("Invalid Last Name (only letters, 2–30 chars)");
+    if (!nameRegex.test(firstName)) return setError("Invalid First Name (only letters, 2–20 chars)");
+    if (!nameRegex.test(lastName)) return setError("Invalid Last Name (only letters, 2–20 chars)");
     if (!imageUrlRegex.test(photoUrl) || !photoUrl.startsWith("http")) return setError("Invalid Photo URL");
 
 
