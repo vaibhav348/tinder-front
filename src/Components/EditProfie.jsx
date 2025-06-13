@@ -21,22 +21,49 @@ const EditProfie = ({ userData }) => {
   const [gender, setGender] = useState(userData?.gender || "");
   const [about, setAbout] = useState(userData?.about || "");
   const [photoUrl, setPhotoUrl] = useState(userData?.photoUrl)
+  const [skills, setSkills] = useState(userData?.skills || [])
+  const [input, setInput] = useState("")
   const [error, setError] = useState("")
   const [showToast, setShowToast] = useState(false)
 
   const dispatch = useDispatch()
+const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addSkill();
+    }
+  };
+  const addSkill=async(e)=>{
+    e.preventDefault()
+    const trimmed = input.trim();
+    if (!trimmed) return;
+      if (skills.includes(trimmed)) {
+      alert("Skill already added");
+      return;
+    }
+   
+    setSkills([...skills, trimmed]);
+    setInput('');
+    console.log(skills);
+    
+  }
 
   const saveProfile = async (e) => {
     setError("")
     e.preventDefault(); // Stop page refresh
 
     const nameRegex = /^[A-Za-z]{2,20}$/;
-    const imageUrlRegex = /\.(jpg|jpeg|png|webp|gif|svg)$/i;
+    const imageUrlRegex = /\.(jpeg|jpg|gif|png|webp|bmp|svg)(\?.*)?$/i;
+
 
     if (!nameRegex.test(firstName)) return setError("Invalid First Name (only letters, 2–20 chars)");
     if (!nameRegex.test(lastName)) return setError("Invalid Last Name (only letters, 2–20 chars)");
-    if (!imageUrlRegex.test(photoUrl) || !photoUrl.startsWith("http")) return setError("Invalid Photo URL");
-
+    try {
+      new URL(photoUrl);
+      if (!photoUrl.startsWith("http")) throw new Error();
+    } catch {
+      return setError("Invalid Photo URL");
+    }
 
     const ageNum = parseInt(age);
     if (isNaN(ageNum) || ageNum < 13 || ageNum > 120) return setError("Age must be between 13 and 120");
@@ -53,6 +80,7 @@ const EditProfie = ({ userData }) => {
         about,
         gender,
         photoUrl,
+        skills
       }, {
         withCredentials: true
       });
@@ -88,7 +116,7 @@ const EditProfie = ({ userData }) => {
               <div>
                 <label htmlFor="firstName" className="block text-sm font-semibold text-gray-200 mb-1">First Name</label>
                 <input
-                 maxLength={20}
+                  maxLength={20}
                   onChange={(e) => {
                     setFirstName(e.target.value)
                     if (firstName.length > 20) return setError("Invalid First Name (only letters, 2–20 chars)");
@@ -97,7 +125,7 @@ const EditProfie = ({ userData }) => {
                   type="text"
                   id="firstName"
                   placeholder="Enter first name"
-                  className="w-full px-3 py-1 rounded-lg bg-gray-800 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full flex-1 px-3 py-2 rounded-lg bg-[#111827] bg-opacity-80 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
                 />
               </div>
 
@@ -105,7 +133,7 @@ const EditProfie = ({ userData }) => {
               <div>
                 <label htmlFor="lastName" className="block text-sm font-semibold text-gray-200 mb-1">Last Name</label>
                 <input
-                maxLength={20}
+                  maxLength={20}
                   onChange={(e) => {
                     setLastName(e.target.value)
                     if (lastName.length > 20) return setError("Invalid Last Name (only letters, 2–20 chars)");
@@ -115,7 +143,7 @@ const EditProfie = ({ userData }) => {
                   type="text"
                   id="lastName"
                   placeholder="Enter last name"
-                  className="w-full px-3 py-2 rounded-lg bg-gray-800 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full flex-1 px-3 py-2 rounded-lg bg-[#111827] bg-opacity-80 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
                 />
               </div>
 
@@ -128,42 +156,42 @@ const EditProfie = ({ userData }) => {
                   type="text"
                   id="photoUrl"
                   placeholder="Enter photo URL"
-                  className="w-full px-3 py-2 rounded-lg bg-gray-800 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full flex-1 px-3 py-2 rounded-lg bg-[#111827] bg-opacity-80 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
                 />
               </div>
 
               {/* Age */}
-             <div>
-  <label htmlFor="age" className="block text-sm font-semibold text-gray-200 mb-1">Age</label>
-  <input
-    onChange={(e) => {
-      const value = e.target.value;
-      if (value.length <= 3 && +value <= 999) {
-        setAge(value);
-      }
-    }}
-    value={age}
-    type="number"
-    id="age"
-    placeholder="Enter age"
-    min={0}
-    max={999}
-    className="w-full px-3 py-2 rounded-lg bg-gray-800 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-  />
-</div>
+              <div>
+                <label htmlFor="age" className="block text-sm font-semibold text-gray-200 mb-1">Age</label>
+                <input
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value.length <= 3 && +value <= 999) {
+                      setAge(value);
+                    }
+                  }}
+                  value={age}
+                  type="number"
+                  id="age"
+                  placeholder="Enter age"
+                  min={0}
+                  max={999}
+                  className="w-full flex-1 px-3 py-2 rounded-lg bg-[#111827] bg-opacity-80 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                />
+              </div>
 
 
               {/* Gender */}
               <div>
                 <label htmlFor="gender" className="block text-sm font-semibold text-gray-200 mb-1">Gender</label>
                 <input
-                maxLength={10}
+                  maxLength={10}
                   onChange={(e) => setGender(e.target.value)}
                   value={gender}
                   type="text"
                   id="gender"
                   placeholder="Enter gender"
-                  className="w-full px-3 py-2 rounded-lg bg-gray-800 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full flex-1 px-3 py-2 rounded-lg bg-[#111827] bg-opacity-80 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
                 />
               </div>
 
@@ -171,15 +199,60 @@ const EditProfie = ({ userData }) => {
               <div>
                 <label htmlFor="about" className="block text-sm font-semibold text-gray-200 mb-1">About</label>
                 <input
-                maxLength={250}
+                  maxLength={250}
                   onChange={(e) => setAbout(e.target.value)}
                   value={about}
                   type="text"
                   id="about"
                   placeholder="Enter about"
-                  className="w-full px-3 py-2 rounded-lg bg-gray-800 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full  
+                  
+                  flex-1 px-3 py-2 rounded-lg bg-[#111827] bg-opacity-80 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
                 />
               </div>
+              {/* skills  */}
+              <div>
+                <label htmlFor="skills" className="block text-sm font-semibold text-gray-200 mb-1">Skills</label>
+                <div className = "flex flex-col sm:flex-row gap-2">
+
+                <input
+                  maxLength={20}
+                  minLength={1}
+                  onChange={(e) => setInput(e.target.value)}
+                  // onKeyDown={handleKeyDown}
+                  value={input}
+                  type="text"
+                  id="skills"
+                  placeholder="Enter Skills"
+                  className="flex-1 px-3 py-2 rounded-lg bg-[#111827] bg-opacity-80 border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                />
+
+                <button
+                  disabled={skills.length >= 10}
+        onClick={addSkill}
+         className={`px-4 py-2 rounded-lg border text-white transition-all ${
+        skills.length >= 10 ? 'bg-gray-400 text-gray-900 cursor-not-allowed' : 'bg-purple-500 hover:bg-purple-600'
+      }`}
+  >
+        Add Skill
+      </button>
+          </div>
+
+    <div className='flex flex-wrap gap-2 my-2 max-h-48 overflow-y-auto max-w-full'>
+  {
+    skills.map((skill, index) => (
+      <p
+        key={index}
+        className='text-sm bg-gray-200 text-purple-900 rounded px-2 py-1 flex-grow basis-[calc(25%-0.5rem)] text-center'
+      >
+        {skill}
+      </p>
+    ))
+  }
+</div>
+
+              </div>
+
 
               {/* Error message */}
               {error && (
@@ -189,7 +262,7 @@ const EditProfie = ({ userData }) => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-2 rounded-lg font-semibold hover:opacity-90 transition"
+                className="w-full  bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white py-2 rounded-lg font-semibold hover:opacity-90 transition"
               >
                 Save Changes
               </button>
@@ -197,7 +270,7 @@ const EditProfie = ({ userData }) => {
           </form>
 
           <div className=''>
-            <UserCard user={{ firstName, lastName, photoUrl, age, about, gender }} />
+            <UserCard user={{ firstName, lastName, photoUrl, age, about, gender, skills }} />
           </div>
         </div>
 

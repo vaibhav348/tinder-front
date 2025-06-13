@@ -78,12 +78,18 @@ const UserCard = ({ user }) => {
         {/* Skills section */}
         {user?.skills?.length > 0 && (
           <div className="mt-3">
-            <p className="font-semibold text-sm text-purple-500 mb-1 pl-2">Skills</p>
-            <ul className="list-disc list-inside text-xs text-gray-300 pl-2">
-              {user.skills.map((skill, index) => (
-                <li key={index} className="hover:text-purple-400 transition cursor-default">{skill}</li>
-              ))}
-            </ul>
+            <p className="font-semibold text-sm text-purple-300 uppercase text-shadow-black mb-1 pl-2">Skills</p>
+           <div className="grid grid-cols-[repeat(auto-fit,minmax(80px,1fr))] gap-2 text-xs text-gray-300 max-w-full">
+  {user.skills.map((skill, index) => (
+    <div
+      key={index}
+      className="text-sm px-2 py-1 bg-gray-200 text-purple-950 rounded hover:text-purple-800 transition cursor-default text-center"
+    >
+      {skill}
+    </div>
+  ))}
+</div>
+
           </div>
         )}
 

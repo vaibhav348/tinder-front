@@ -26,16 +26,22 @@ const ConnectionCard = ({ user }) => {
         </div>
 
         {/* Skills Section */}
-        {/* {user?.skills?.length > 0 && (
-          <div className="mt-2">
-            <p className="font-semibold text-sm text-pink-400">Skills</p>
-            <ul className="list-disc list-inside text-xs text-gray-200 space-y-1 pl-2">
-              {user.skills.map((skill, index) => (
-                <li key={index} className="hover:text-purple-400 transition">{skill}</li>
-              ))}
-            </ul>
-          </div>
-        )} */}
+       {user?.skills?.length > 0 && (
+  <div className="mt-2">
+    <p className="font-semibold text-sm text-pink-400">Skills</p>
+    <div className="flex flex-wrap gap-2 mt-1 max-w-full max-h-48 overflow-y-auto">
+      {user.skills.map((skill, index) => (
+        <p
+          key={index}
+          className="text-sm bg-gray-200 text-purple-900 rounded px-2 py-1 flex-grow basis-[calc(25%-0.5rem)] text-center hover:text-purple-800 transition"
+        >
+          {skill}
+        </p>
+      ))}
+    </div>
+  </div>
+)}
+
       </div>
     </div>
   );

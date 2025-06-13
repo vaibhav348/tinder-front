@@ -27,7 +27,7 @@ const RequestCard = ({ user }) => {
 
   const handleRejected = async (e) => {
     e.preventDefault(); // Stop page refresh
-   
+
 
     try {
       const res = await axios.post(
@@ -72,24 +72,20 @@ const RequestCard = ({ user }) => {
         </div>
 
         {/* Skills Section */}
-        {/* {user?.fromUserId?.skills?.length > 0 && (
-  <div className="mt-2">
-    <p className="font-semibold text-sm text-pink-400">Skills</p>
-    <ul
-      className={`text-xs text-gray-200 pl-2 gap-x-4 gap-y-1 ${
-        user?.fromUserId?.skills.length <= 5
-          ? 'grid grid-cols-2'
-          : 'list-disc list-inside space-y-1'
-      }`}
-    >
-      {user?.fromUserId?.skills.map((skill, index) => (
-        <li key={index} className="hover:text-purple-400 transition">
-          {skill}
-        </li>
-      ))}
-    </ul>
-  </div>
-)} */}
+        {user?.fromUserId?.skills?.length > 0 && (
+          <div className="my-2">
+            <p className="font-semibold text-sm text-pink-400">Skills</p>
+            <div
+              className={`flex flex-wrap gap-2 mt-1 max-w-full max-h-48 overflow-y-auto`}
+            >
+              {user?.fromUserId?.skills.map((skill, index) => (
+                <p key={index} className="text-sm bg-gray-200 text-purple-900 rounded px-2 py-1 flex-grow basis-[calc(25%-0.5rem)] text-center hover:text-purple-800 transition">
+                  {skill}
+                </p>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Futuristic action buttons */}
         <div className="flex justify-between gap-3 mt-8">
